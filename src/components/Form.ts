@@ -15,3 +15,4 @@ export function createForm():HTMLFormElement{
     form.append(inputName,inputEmail);
     return form;
 }
+
