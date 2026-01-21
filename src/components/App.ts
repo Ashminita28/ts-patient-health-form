@@ -1,6 +1,6 @@
 
-import { createForm } from './Form';
-// import { Table } from './Table';
+import { createForm } from './form-manager/create-form';
+import { Table } from './table';
 
 export function renderApp(): void {
   const root = document.getElementById('app');
@@ -16,5 +16,6 @@ export function renderApp(): void {
 
   // Append components (order matters)
   layout.appendChild(createForm());
+  layout.appendChild(Table());
   root.appendChild(layout);
 }

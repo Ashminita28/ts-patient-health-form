@@ -1,0 +1,19 @@
+export interface PatientForm{
+    fullName:string,
+    dob:string,
+    email:string,
+    phone:string,
+    address:string,
+    height:string,
+    weight:string,
+    bloodPressure:string,
+    bloodTempreture:string,
+    bloodType:string,
+    dietType:string,
+    diseases:string[],
+    exerciseFrequency:string,
+    allergies:string,
+    sleepHours:string,
+    medication:string,
+    privacy:boolean
+}

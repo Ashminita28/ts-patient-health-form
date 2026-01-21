@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "prepare": "husky",
     "lint": "eslint --ext .js,.ts .",
+    "test": "echo \"No tests yet\"",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "devDependencies": {
@@ -26,5 +27,8 @@
   },
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
+  },
+  "dependencies": {
+    "@commitlint/cli": "^20.3.1"
   }
 }

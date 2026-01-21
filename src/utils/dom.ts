@@ -2,17 +2,6 @@ export function element(tag:string){
     return document.createElement(tag);
 }
 
-// export function createInput(type:string,placeholder:string){
-//     const input=document.createElement('input');
-//     input.type=type;
-//     input.placeholder=placeholder;
-//     return input;
-// }
-
-
-// import { createElement } from '../../lib/createElement';
-
-
 
 export function createInput(
 

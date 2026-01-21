@@ -1,10 +1,8 @@
 // import './style.css'
+import { loadState } from "./app.storage";
 import { renderApp } from "./components/App";
 
-
-
-// const app=document.querySelector<HTMLDivElement>('#app');
-
-// app!.appendChild(renderApp());
-
-renderApp();
+document.addEventListener('DOMContentLoaded',()=>{
+    loadState();
+    renderApp();
+});

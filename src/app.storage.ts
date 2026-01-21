@@ -1,12 +1,12 @@
-import { appState } from "./app.state";
+import { state } from "./app.state";
 
+// STORE DATA IN LOCAL STORAGE.
 export function saveState(){
-  localStorage.setItem('patients-data',JSON.stringify(appState.patients));
+  localStorage.setItem('patients-data',JSON.stringify(state.records));
 }
 
+// GET DATA FROM LOCAL STORAGE.
 export function loadState(){
     const data=localStorage.getItem('patients-data');
-    if(data){
-        appState.patients=JSON.parse(data);
-    }
+    return data?JSON.parse(data):[];
 }

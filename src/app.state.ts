@@ -1,11 +1,7 @@
-import type { Datas } from "./types";
+import type { PatientForm } from "./types/patientForm-types";
 
-export interface state{
-    patients:Datas[];
-}
-
-export const appState:state={
-    patients:[]
+export const state={
+    records:[] as PatientForm[],
+    editIndex:null as number|null
 };
-
 
