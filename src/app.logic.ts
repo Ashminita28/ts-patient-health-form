@@ -24,11 +24,3 @@ export function editRecord(index:number){
     state.editIndex=index;
 }
 
-export function validateRecord(data:PatientForm):string[]{
-    const errors:string[]=[];
-
-    if(!data.fullName||/[^A-Za-z]+$/.test(data.fullName)){
-        errors.push("Full name letters only");
-    }
-    return errors;
-}

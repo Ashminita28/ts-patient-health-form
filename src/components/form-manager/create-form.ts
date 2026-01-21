@@ -4,17 +4,16 @@ import { state } from "../../app.state";
 import type { PatientForm } from "../../types/patientForm-types";
 import { addRecord, updateRecord } from "../../app.logic";
 import { renderApp } from "../App";
-import { validateRecord } from "../../app.logic";
+import { validateFields } from "../../utils/validations";
+
 
 
 export function createForm():HTMLFormElement{
 
     const container=document.createElement('div');
-    container.className='form-container';
-
-
     const form=document.createElement('form') as HTMLFormElement;
-// helper
+
+    // helper
     const createInput=(name:keyof PatientForm,placeholder:string,type='text')=>{
          const input=document.createElement('input');
          input.type=type;
@@ -23,20 +22,113 @@ export function createForm():HTMLFormElement{
          form.appendChild(input);
          return input;
     }
+    const nameerror=document.createElement('span');
 
     // input fields
-    const fullName=createInput('fullName','Enter your name');
-    const dob=createInput('dob','Enter birth date');
-    const email=createInput('phone','Enter phone number');
-    const address=createInput('address','Enter name');
-    const phone=createInput('phone','Enter your email');
-    const height=createInput('height','Enter name');
-    const weight=createInput('weight','Enter name');
-    const bloodPressure=createInput('bloodPressure','Enter name');
-    const bloodTempreture=createInput('bloodTempreture','Enter name');
-    const allergies=createInput('allergies','Enter name');
-    const medication=createInput('medication','Enter name');
-    const sleepHours=createInput('sleepHours','enter')
+    const fullName=createInput('fullName','Enter your name','text');
+    fullName.addEventListener('input',function(){
+        const error=validateFields('fullName',fullName.value);
+        if(error){
+            nameerror.textContent=error;
+        }else{
+            nameerror.textContent='';
+        }
+    })
+    form.appendChild(nameerror);
+
+    // const doberror=document.createElement('span');
+    const dob=createInput('dob','Enter birth date','Date');
+
+    const emailerror=document.createElement('span');
+    const email=createInput('phone','Enter email id','text');
+    email.addEventListener('input',function(){
+        const error=validateFields('email',email.value);
+        if(error){
+            emailerror.textContent=error;
+        }else{
+            emailerror.textContent='';
+        }
+    })
+    form.appendChild(emailerror);
+
+
+    const addresserror=document.createElement('span');
+    const address=createInput('address','Enter you address','textArea');
+    address.addEventListener('input',function(){
+        const error=validateFields('address',address.value);
+        if(error){
+            addresserror.textContent=error;
+        }else{
+            addresserror.textContent='';
+        }
+    })
+    form.appendChild(addresserror);
+
+
+    
+    const phone=createInput('phone','Enter your phone number','tel');
+    const phoneerror=document.createElement('span');
+    phone.addEventListener('input',function(){
+        const error=validateFields('phone',phone.value);
+        if(error){
+            phoneerror.textContent=error;
+        }else{
+            phoneerror.textContent='';
+        }
+    })
+    form.appendChild(phoneerror);
+    const height=createInput('height','Enter your height in cm','number');
+    const heighterror=document.createElement('span');
+    height.addEventListener('input',function(){
+        const error=validateFields('height',height.value);
+        if(error){
+            heighterror.textContent=error;
+        }else{
+            heighterror.textContent='';
+        }
+    })
+    form.appendChild(heighterror);
+
+    const weight=createInput('weight','Enter your weight in kg','number');
+    const weighterror=document.createElement('span');
+    weight.addEventListener('input',function(){
+        const error=validateFields('height',height.value);
+        if(error){
+            weighterror.textContent=error;
+        }else{
+            weighterror.textContent='';
+        }
+    })
+    form.appendChild(weighterror);
+
+    const bloodPressure=createInput('bloodPressure','Enter your blood pressure in mm Hg','number');
+    const bperror=document.createElement('span');
+    bloodPressure.addEventListener('input',function(){
+        const error=validateFields('bloodPressure',bloodPressure.value);
+        if(error){
+            bperror.textContent=error;
+        }else{
+            bperror.textContent='';
+        }
+    })
+    form.appendChild(bperror);
+
+    const bloodTempreture=createInput('bloodTempreture','Enter your blood tempreture in celsius','number');
+    const bterror=document.createElement('span');
+    bloodTempreture.addEventListener('input',function(){
+        const error=validateFields('bloodTempreture',bloodTempreture.value);
+        if(error){
+            bterror.textContent=error;
+        }else{
+            bterror.textContent='';
+        }
+    })
+    form.appendChild(bterror);
+    const allergies=createInput('allergies','allergy','Mention your allergies');
+    const medication=createInput('medication','Mention your current medications');
+    const sleepHours=createInput('sleepHours','Enter your sleep hours','number');
+
+
 
     // dropdown
     const bloodType=document.createElement('select');
@@ -83,9 +175,10 @@ export function createForm():HTMLFormElement{
         const rd=document.createElement('input');
         rd.type='radio';
         rd.value=r;
-        rd.checked=state.editIndex!==null?state.records[state.editIndex].diseases.includes(r):false;
+        rd.checked=state.editIndex!==null?state.records[state.editIndex].exerciseFrequency.includes(r):false;
         exerciseBox.push(rd);
         form.appendChild(rd);
+
         const label=element('label');
         label.textContent=r
         form.appendChild(label);
@@ -125,11 +218,6 @@ export function createForm():HTMLFormElement{
         privacy:privacy.checked
     };
 
-    const errors=validateRecord(data);
-    if(errors.length>0){
-       alert(errors.join('\n'));
-       return;
-    }
     if(state.editIndex===null){
         addRecord(data)
     }else{
