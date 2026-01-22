@@ -6,3 +6,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     loadState();
     renderApp();
 });
+
+
+
+

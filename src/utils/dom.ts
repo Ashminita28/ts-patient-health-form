@@ -1,23 +1,22 @@
-export function element(tag: string) {
-  return document.createElement(tag);
-}
 
-export function createInput(
-  type: string,
-  name: string,
-  id: string,
-  placeholder?: string,
-  value?: string,
-): HTMLInputElement {
-  const input = document.createElement("input") as HTMLInputElement;
-  input.type = type;
-  input.name = name;
-  input.id = id;
-  if (placeholder) {
-    input.placeholder = placeholder;
+export function createElement<K extends keyof HTMLElementTagNameMap>(tag:K,options:{
+  className?:string;
+  text?:string;
+  attributes?:{
+    [key:string]:string
+  };
+}={}):HTMLElementTagNameMap[K]{
+  const element=document.createElement(tag);
+  if(options.className){
+    element.className=options.className;
   }
-  if (value) {
-    input.value = value;
+  if(options.text){
+    element.textContent=options.text;
   }
-  return input;
+  if(options.attributes){
+    for(const key in options.attributes){
+      element.setAttribute(key,options.attributes[key]);
+    }
+  }
+  return element;
 }

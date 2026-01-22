@@ -116,8 +116,24 @@ export function validateFields(fieldName: string, value: string) {
     }
   }
 
+  // CHECKBOX VALIDATION
+
   
 
 
   return error;
 }
+
+// import { PatientForm } from "../types/patientForm-types";
+
+// export default{
+//   required:(value:string|boolean)=>{
+//     if(typeof value==='boolean')
+//     {
+//       return value===true;
+//     }
+//     return value.trim() !=='';
+//   },
+
+
+// }
