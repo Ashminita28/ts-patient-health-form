@@ -1,50 +1,81 @@
 import { saveState } from "./app.storage";
 import type { PatientForm } from "./types/patientForm-types";
 import { state } from "./app.state";
-// import { createElement } from "./utils/dom";
-// import { createForm } from "./components/form-manager/create-form";
 
-export function addRecord(data:PatientForm){
-    state.records.push(data);
+// ADD RECORD 
+export function addRecord(data: PatientForm): void {
+  state.records.push(data);
+  state.editIndex = null;
+  saveState();
+}
+
+// UPDATE RECORD IN THE TABLE AND STORAGE
+export function updateRecord(data: PatientForm) {
+  if (state.editIndex != null) {
+    state.records[state.editIndex] = data;
+    state.editIndex = null;
     saveState();
+  }
 }
 
-export function updateRecord(data:PatientForm){
-    if(state.editIndex!=null){
-        state.records[state.editIndex]=data;
-        state.editIndex=null;
-        saveState();
-    }
+// DELETE RECORD
+export function deleteRecord(index: number) {
+  state.records.splice(index, 1);
+  saveState();
 }
 
-export function deleteRecord(index:number){
-    state.records.splice(index,1);
-    saveState();
+// EDIT RECORD
+export function editRecord(index: number) {
+  const patient = state.records[index];
+  state.editIndex = index;
+
+  const name = document.getElementById("fullName") as HTMLInputElement;
+  const dob = document.getElementById("dob") as HTMLInputElement;
+  const email = document.getElementById("email") as HTMLInputElement;
+  const phone = document.getElementById("phone") as HTMLInputElement;
+  const address = document.getElementById("address") as HTMLTextAreaElement;
+  const height = document.getElementById("height") as HTMLInputElement;
+  const weight = document.getElementById("weight") as HTMLInputElement;
+  const bloodPressure = document.getElementById(
+    "bloodPressure",
+  ) as HTMLInputElement;
+  const bloodTempreture = document.getElementById(
+    "bloodTempreture",
+  ) as HTMLInputElement;
+  const bloodType = document.getElementById("bloodType") as HTMLSelectElement;
+  const dietType = document.getElementById("dietType") as HTMLSelectElement;
+  const sleepHours = document.getElementById("sleepHours") as HTMLInputElement;
+  const allergies = document.getElementById("allergies") as HTMLInputElement;
+  const medication = document.getElementById("currMedication") as HTMLInputElement;
+
+
+//   PRE-FILLS THE DATA INTO THE FORM.
+  name.value = patient.fullName;
+  dob.value = patient.dob;
+  email.value = patient.email;
+  phone.value = patient.phone;
+  address.value = patient.address;
+  height.value = patient.height;
+  weight.value = patient.weight;
+  bloodPressure.value = patient.bloodPressure;
+  bloodTempreture.value = patient.bloodTempreture;
+  bloodType.value = patient.bloodType;
+  dietType.value = patient.dietType;
+  allergies.value = patient.allergies;
+  sleepHours.value = patient.sleepHours;
+  medication.value = patient.medication;
+
+  const diseases = document.querySelectorAll(
+    'input[name="disease"]',
+  ) as NodeListOf<HTMLInputElement>;
+  diseases.forEach((c) => {
+    c.checked = patient.diseases.includes(c.value);
+  });
+
+  const exercises = document.querySelectorAll(
+    'input[name="exercise"]',
+  ) as NodeListOf<HTMLInputElement>;
+  exercises.forEach((r) => {
+    r.checked = r.value === patient.exerciseFrequency;
+  });  
 }
-// const nameInput=createElement('input',{attributes:{type:'text',id:'fullName'}}) as HTMLInputElement;
-// const dobInput=createElement('input',{attributes:{type:'Date',id:'dob'}}) as HTMLInputElement;
-// const emailInput=createElement('input',{attributes:{type:'Email',id:'email'}}) as HTMLInputElement;
-// const phoneInput=createElement('input',{attributes:{type:'number',id:'phone'}}) as HTMLInputElement;
-// const addressInput=createElement('textarea',{attributes:{id:'address'}});
-// const heightInput=createElement('input',{attributes:{type:'number',id:'height'}}) as HTMLInputElement;
-//  const weightInput=createElement('input',{attributes:{type:'number',id:'weight'}}) as HTMLInputElement;
-//   const bpInput=createElement('input',{attributes:{type:'number',id:'bloodPressure'}}) as HTMLInputElement;
-//   const btInput=createElement('input',{attributes:{type:'number',id:'bloodTempreture'}}) as HTMLInputElement;
-//   const bInput=createElement('input',{attributes:{type:'radio',id:'bloodType'}}) as HTMLInputElement;
-//   const dInput=createElement('input',{attributes:{type:'dropdown',id:'dietType'}}) as HTMLInputElement;
-//   const aInput=createElement('input',{attributes:{type:'text',id:'allergies'}}) as HTMLInputElement;
-//    const sInput=createElement('input',{attributes:{type:'number',id:'sleepHours'}}) as HTMLInputElement;
-//    const cmInput=createElement('textarea',{attributes:{id:'currMedication'}}) ;
-//    const checkBoxInput=createElement('input',{attributes:{type:'checkbox',id:'address'}}) as HTMLInputElement;
-
-   const name=document.getElementById('fullName') as HTMLInputElement;
-
-export function editRecord(index:number){
-    const patient=state.records[index];
-    state.editIndex=index;
-    name.value=patient.fullName;
-
-}
-
-
-

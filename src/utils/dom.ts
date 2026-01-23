@@ -1,4 +1,3 @@
-
 export function createElement<K extends keyof HTMLElementTagNameMap>(tag:K,options:{
   className?:string;
   text?:string;
@@ -20,3 +19,5 @@ export function createElement<K extends keyof HTMLElementTagNameMap>(tag:K,optio
   }
   return element;
 }
+
+
