@@ -1,11 +1,7 @@
-import { loadState } from "./app.storage";
-import { renderApp } from "./components/App";
 
-document.addEventListener('DOMContentLoaded',()=>{
-    loadState();
-    renderApp();
+import { renderApp } from "./ui/App";
+
+// Entry point: bootstrap application state and UI
+document.addEventListener('DOMContentLoaded', (): void => {
+  renderApp();         // Deterministic initial render
 });
-
-
-
-

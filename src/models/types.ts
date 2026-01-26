@@ -1,4 +1,7 @@
+// STRUCTURE OF PATIENT DATA
+
 export interface PatientForm{
+    id:number,
     fullName:string,
     dob:string,
     email:string,
@@ -10,10 +13,10 @@ export interface PatientForm{
     bloodTempreture:string,
     bloodType:string,
     dietType:string,
-    diseases:string[],
-    exerciseFrequency:string,
+    disease:string[],
+    exercise:string,
     allergies:string,
     sleepHours:string,
     medication:string,
-    privacy:boolean
+    agreement:boolean
 }
