@@ -1,13 +1,9 @@
-import './App.css'
-import { MyButton } from './componenets/Form'
+import FormPage from "./componenets/formPage"
 
 function App() {
-  
-
   return (
     <>
-       <h1>Welcome to my form</h1>
-       <MyButton title='Hello'/>
+       <FormPage/>
     </>
   )
 }
