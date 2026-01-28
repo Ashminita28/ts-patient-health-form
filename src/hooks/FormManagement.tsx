@@ -8,6 +8,7 @@ import { validateForm } from "../utils/validation";
 interface FormManagementReturn {
   formData: FormValues;
   errors: FormErrors;
+  editingId: string | null;
   formRef: React.RefObject<HTMLFormElement | null>;
   handleInputChange: (
     e: React.ChangeEvent<
@@ -17,11 +18,14 @@ interface FormManagementReturn {
   handleCheckboxChange: (disease: string) => void;
   resetForm: () => void;
   validateAllFields: () => FormErrors;
+  setFormDataForEdit: (data: FormValues, id: string) => void;
+  clearEditingMode: () => void;
 }
 
 export const FormManagement = (): FormManagementReturn => {
   const [formData, setFormData] = useState<FormValues>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [editingId, setEditingId] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleInputChange = (
@@ -58,6 +62,7 @@ export const FormManagement = (): FormManagementReturn => {
   const resetForm = () => {
     setFormData(initialFormData);
     setErrors({});
+    setEditingId(null);
   };
 
   const validateAllFields = (): FormErrors => {
@@ -66,13 +71,25 @@ export const FormManagement = (): FormManagementReturn => {
     return validationErrors;
   };
 
+  const setFormDataForEdit = (data: FormValues, id: string) => {
+    setFormData(data);
+    setEditingId(id);
+  };
+
+  const clearEditingMode = () => {
+    setEditingId(null);
+  };
+
   return {
     formData,
     errors,
+    editingId,
     formRef,
     handleInputChange,
     handleCheckboxChange,
     resetForm,
     validateAllFields,
+    setFormDataForEdit,
+    clearEditingMode,
   };
 };

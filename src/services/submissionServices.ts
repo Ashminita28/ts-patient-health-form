@@ -31,7 +31,10 @@ export const formSubmission = (
   formData: FormValues,
   errors: FormErrors,
 ): SubmissionResult => {
-  if (Object.keys(errors).length > 0) {
+  const hasErrors = Object.values(errors).some(
+    (error) => error && error.trim() !== "",
+  );
+  if (hasErrors) {
     return {
       success: false,
       message: "Please fix all validations",

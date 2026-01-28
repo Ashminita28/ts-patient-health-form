@@ -1,13 +1,8 @@
 import Button from "./Common/Button";
-// import TextInput from "./FormFields/TextInput";
 import React from "react";
 import type { FormValues, FormErrors } from "../types/formTypes";
-// import CheckboxGroup from "./FormFields/CheckboxGroup";
-// import { chronicDiseasesOptions } from "../constants/FormOptions";
-
 import PersonalInfoSection from "./FormSections/PersonalInfoSection";
 import HealthInfoSection from "./FormSections/HealthInfoSection";
-import "../styles/style.css";
 import PrivacyConsentSection from "./FormSections/PrivacyConsentSection";
 
 interface HealthFormProps {
@@ -21,6 +16,7 @@ interface HealthFormProps {
   onCheckboxChange: (disease: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   formRef: React.RefObject<HTMLFormElement | null>;
+  isEditing?: boolean;
 }
 
 const HealthForm: React.FC<HealthFormProps> = ({
@@ -30,6 +26,7 @@ const HealthForm: React.FC<HealthFormProps> = ({
   onCheckboxChange,
   onSubmit,
   formRef,
+  isEditing = false,
 }) => {
   return (
     <>
@@ -55,7 +52,7 @@ const HealthForm: React.FC<HealthFormProps> = ({
             onChange={onInputChange}
           />
           <Button type="submit" className="btn">
-            Submit
+            {isEditing ? "Update" : "Submit"}
           </Button>
         </form>
       </div>

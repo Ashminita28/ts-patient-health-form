@@ -1,0 +1,59 @@
+.App.light-theme {
+  background-color: #f5f5ff;
+  color: #333;
+}
+
+.App.dark-theme {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.App.dark-theme .container {
+  background-color: #2d2d2d;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+.App.light-theme .container {
+  background-color: #f5f5ff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.App.dark-theme h1,
+.App.dark-theme h2,
+.App.dark-theme h3 {
+  color: #e0e0e0;
+}
+
+.App.dark-theme .full-content {
+  background-color: #383838;
+}
+
+/* .container{
+    max-width: 1400px;
+    margin:0 auto;
+    /* background-color: white; */
+/* padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); */
+
+.app-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.theme-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.theme-button {
+  padding: 12px 30px;
+  font-size: 16px;
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+}
