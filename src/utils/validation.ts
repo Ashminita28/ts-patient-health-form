@@ -79,7 +79,7 @@ export const validateField = (
         if (!value || value.trim() === "") {
           return "*Height required";
         }
-        if (parseFloat(value) < 30 || parseFloat(value) > 250) {
+        if (Number(value) < 30 || Number(value) > 250) {
           return "*Height must be between (30 to 250)cm";
         }
       }
@@ -90,7 +90,7 @@ export const validateField = (
         if (!value || value.trim() === "") {
           return "*Weight required";
         }
-        if (parseFloat(value) < 30 || parseFloat(value) > 200) {
+        if (Number(value) < 30 || Number(value) > 200) {
           return "*Weight must be between (30 to 200)kg";
         }
       }
@@ -102,7 +102,7 @@ export const validateField = (
         if (!value || value.trim() === "") {
           return "";
         }
-        if (parseFloat(value) < 70 || parseFloat(value) > 250) {
+        if (Number(value) < 70 || Number(value) > 250) {
           return "*Blood Pressure must be between (70-250 mmHg)";
         }
       }
@@ -114,7 +114,7 @@ export const validateField = (
         if (!value || value.trim() === "") {
           return "";
         }
-        if (parseFloat(value) < 30 || parseFloat(value) > 45) {
+        if (Number(value) < 30 || Number(value) > 45) {
           return "*Blood temprature must be between (30 - 45 degree celcius)";
         }
       }
@@ -130,6 +130,14 @@ export const validateField = (
 
       return "";
 
+    case "exerciseFrequency":
+      if (typeof value === "string") {
+        if (!value || value === "") {
+          return "Select exercise frequency";
+        }
+      }
+      return "";
+
     case "sleepHours":
       if (typeof value === "string") {
         if (Number(value) < 0 || Number(value) > 24)
@@ -139,7 +147,7 @@ export const validateField = (
       return "";
 
     case "privacyConsent":
-      if (typeof value === "boolean") {
+      if (typeof value === "string") {
         if (!value) {
           return "*Please agree to the privacy policy";
         }
@@ -156,26 +164,31 @@ export const validateForm = (formData: FormValues): FormErrors => {
   const nameError = validateField("name", formData.name);
   if (nameError) errors.name = nameError;
   const phoneError = validateField("phone", formData.phone);
-  if (phoneError) errors.name = phoneError;
+  if (phoneError) errors.phone = phoneError;
   const dobError = validateField("dob", formData.dob);
-  if (dobError) errors.name = dobError;
+  if (dobError) errors.dob = dobError;
   const emailError = validateField("email", formData.email);
-  if (emailError) errors.name = emailError;
+  if (emailError) errors.email = emailError;
   const addressError = validateField("address", formData.address);
-  if (addressError) errors.name = addressError;
+  if (addressError) errors.address = addressError;
   const tempError = validateField("bloodTempreture", formData.bloodTempreture);
-  if (tempError) errors.name = tempError;
+  if (tempError) errors.bloodTempreture = tempError;
   const pressureError = validateField("bloodPressure", formData.bloodPressure);
-  if (pressureError) errors.name = pressureError;
+  if (pressureError) errors.bloodPressure = pressureError;
   const bloodTypeError = validateField("bloodType", formData.bloodType);
-  if (bloodTypeError) errors.name = bloodTypeError;
+  if (bloodTypeError) errors.bloodType = bloodTypeError;
   const heightError = validateField("height", formData.height);
-  if (heightError) errors.name = heightError;
+  const exerciseFrequencyError = validateField(
+    "exerciseFrequency",
+    formData.exerciseFrequency,
+  );
+  if (exerciseFrequencyError) errors.exerciseFrequency = exerciseFrequencyError;
+  if (heightError) errors.height = heightError;
   const weightError = validateField("weight", formData.weight);
-  if (weightError) errors.name = weightError;
+  if (weightError) errors.weight = weightError;
   const sleepHoursError = validateField("sleepHours", formData.sleepHours);
-  if (sleepHoursError) errors.name = sleepHoursError;
+  if (sleepHoursError) errors.sleepHours = sleepHoursError;
   const privacyError = validateField("privacyConsent", formData.privacyConsent);
-  if (privacyError) errors.name = privacyError;
+  if (privacyError) errors.privacyConsent = false;
   return errors;
 };

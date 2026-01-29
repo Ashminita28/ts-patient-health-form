@@ -18,12 +18,12 @@ const TableRow: React.FC<TableRowProps> = ({ record, onEdit, onDelete }) => {
       <td>{record.address}</td>
       <td>{record.height}</td>
       <td>{record.weight}</td>
-      <td>{record.bloodPressure}</td>
-      <td>{record.bloodTempreture}</td>
+      <td>{record.bloodPressure || "-"}</td>
+      <td>{record.bloodTempreture || "-"}</td>
       <td>{record.bloodType}</td>
-      <td>{record.dietType}</td>
-      <td>{record.allergies}</td>
-      <td>{record.sleepHours}</td>
+      <td>{record.dietType || "-"}</td>
+      <td>{record.allergies || "-"}</td>
+      <td>{record.sleepHours || "-"}</td>
       <td>
         {record.chronicDiseases.length > 0
           ? record.chronicDiseases.join(", ")
@@ -40,7 +40,7 @@ const TableRow: React.FC<TableRowProps> = ({ record, onEdit, onDelete }) => {
         </Button>
         <Button
           onClick={() => onDelete(record.id!)}
-          className="icon-btn edit-btn"
+          className="icon-btn delete-btn"
         >
           Delete
         </Button>

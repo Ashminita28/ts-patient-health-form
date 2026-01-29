@@ -30,8 +30,10 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             id="name"
             name="name"
             label="Full Name"
+            type="text"
             value={formData.name}
             onChange={onChange}
+            placeholder="Enter your name"
             error={errors.name}
             required
           />
@@ -42,6 +44,7 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="date"
             value={formData.dob}
             onChange={onChange}
+            placeholder="Enter your date of birth"
             error={errors.dob}
             required
           />
@@ -54,6 +57,7 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="email"
             value={formData.email}
             onChange={onChange}
+            placeholder="Enter you email id"
             error={errors.email}
             required
           />
@@ -64,6 +68,7 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             type="number"
             value={formData.phone}
             onChange={onChange}
+            placeholder="Enter you phone number"
             error={errors.phone}
             required
           />
@@ -76,6 +81,7 @@ const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
             value={formData.address}
             onChange={onChange}
             error={errors.address}
+            placeholder="Enter your address"
             rows={3}
             required
           />

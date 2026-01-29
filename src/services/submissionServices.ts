@@ -1,4 +1,5 @@
 import type { FormErrors, FormValues } from "../types/formTypes";
+import React from "react";
 
 interface SubmissionResult {
   success: boolean;
@@ -47,11 +48,3 @@ export const formSubmission = (
     data: formData,
   };
 };
-
-export const showSuccessNotification = (message: string): void => {
-  alert(message);
-};
-
-// export const showErrorNotification = (message: string): void => {
-//   alert(message);
-// };

@@ -9,18 +9,16 @@ interface DataTableProps {
 }
 
 const DataTable: React.FC<DataTableProps> = ({ data, onEdit, onDelete }) => {
-  // if(data.length===0){
-  //     return(
-  //         <div className="tableData">
-  //             <div className="record-box">
-  //             <h1>Patient Health Records</h1>
-  //         </div>
-  //         <p>Record not submited</p>
-
-  //         </div>
-  //     );
-  // };
-
+  if (data.length === 0) {
+    return (
+      <div className="tableData">
+        <div className="record-box">
+          <h1>Patient Health Records</h1>
+        </div>
+        <p>Record not submited</p>
+      </div>
+    );
+  }
   return (
     <>
       <div className="tableData">

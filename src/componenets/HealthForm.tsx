@@ -28,6 +28,8 @@ const HealthForm: React.FC<HealthFormProps> = ({
   formRef,
   isEditing = false,
 }) => {
+  console.log("RENDER");
+
   return (
     <>
       <div className="main">

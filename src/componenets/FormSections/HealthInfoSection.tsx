@@ -42,6 +42,7 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
             type="number"
             value={formData.height}
             onChange={onChange}
+            placeholder="Enter your height in CM"
             error={errors.height}
             required
           />
@@ -52,6 +53,7 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
             type="number"
             value={formData.weight}
             onChange={onChange}
+            placeholder="Enter your weight in KG"
             error={errors.weight}
             required
           />
@@ -60,19 +62,21 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
           <TextInput
             id="bloodPressure"
             name="bloodPressure"
-            label="Blood Pressure"
+            label="Blood Pressure(Optional)"
             type="number"
             value={formData.bloodPressure}
             onChange={onChange}
+            placeholder="Enter your blood pressure in mmhg"
             error={errors.bloodPressure}
           />
           <TextInput
             id="bloodTempreture"
             name="bloodTempreture"
-            label="Blood Tempreture"
+            label="Blood Tempreture(Optional)"
             type="number"
             value={formData.bloodTempreture}
             onChange={onChange}
+            placeholder="Enter your blood tempreture in degree celsius"
             error={errors.bloodTempreture}
           />
         </div>
@@ -91,7 +95,7 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
           <Dropdown
             id="dietType"
             name="dietType"
-            label="Diet Type"
+            label="Diet Type(Optional)"
             value={formData.dietType}
             onChange={onChange}
             options={dietTypeOptions}
@@ -103,7 +107,7 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
           <CheckboxGroup
             id="chronicDiseases"
             name="chronicDiseases"
-            label="Chronic diseases"
+            label="Chronic diseases(Optional)"
             options={chronicDiseasesOptions}
             selectedValues={formData.chronicDiseases}
             onChange={onCheckboxChange}
@@ -123,18 +127,20 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
           <TextInput
             id="allergies"
             name="allergies"
-            label="Allergies"
+            label="Allergies(Optional)"
             value={formData.allergies}
             onChange={onChange}
+            placeholder="Mention your allergies"
             error={errors.allergies}
           />
           <TextInput
             id="sleepHours"
             name="sleepHours"
-            label="Sleep Hours"
+            label="Sleep Hours(Optional)"
             type="number"
             value={formData.sleepHours}
             onChange={onChange}
+            placeholder="Enter your sleep hours"
             error={errors.sleepHours}
           />
         </div>
@@ -142,9 +148,10 @@ const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
           <TextArea
             id="medication"
             name="medication"
-            label="Current Medication"
+            label="Current Medication(Optional)"
             value={formData.medication}
             onChange={onChange}
+            placeholder="Mention your current medications(if any)"
             error={errors.medication}
             rows={3}
           />
