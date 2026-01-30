@@ -56,7 +56,7 @@ export const validateField = (
     case "phone":
       if (typeof value === "string") {
         if (value.length > 10) {
-          value = value.slice(0, 10);
+          return "10 digits only";
         }
         if (value === "") {
           return "*Phone number required";
@@ -133,7 +133,7 @@ export const validateField = (
     case "exerciseFrequency":
       if (typeof value === "string") {
         if (!value || value === "") {
-          return "Select exercise frequency";
+          return "*Select exercise frequency";
         }
       }
       return "";
@@ -147,7 +147,7 @@ export const validateField = (
       return "";
 
     case "privacyConsent":
-      if (typeof value === "string") {
+      if (typeof value === "boolean") {
         if (!value) {
           return "*Please agree to the privacy policy";
         }
