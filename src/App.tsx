@@ -6,50 +6,15 @@ import { DataManagement } from './hooks/DataManagement';
 import DataTable from './componenets/DataTable';
 import { useTheme } from './contexts/ThemeContext';
 import { useState } from 'react';
-// import Button from "./componenets/Common/ButtonComponent";
 import { Button } from './components/ui/button';
 import Modal from './componenets/Common/ModalComponent';
 
 const App: React.FC = () => {
   const { isDarkTheme, toggleTheme } = useTheme();
-  const {
-    // formData,
-    // errors,
-    editingId,
-    // formRef,
-    // handleInputChange,
-    // handleCheckboxChange,
-    resetForm,
-    // validateAllFields,
-    setFormDataForEdit,
-    clearEditingMode,
-  } = FormManagement();
+  const { editingId, resetForm, setFormDataForEdit, clearEditingMode } =
+    FormManagement();
 
   const { submitedData, deleteRecord, getRecordById } = DataManagement();
-
-  // const handleFormSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   // const validationErrors = validateAllFields();
-
-  //   // const result = formSubmission(formData, validationErrors);
-  //   console.log("FORM DATA", formData);
-
-  //   // if (!result.success) {
-  //   //   alert("Fix validations");
-  //   //   return;
-  //   // }
-
-  //   if (editingId) {
-  //     updateRecord(editingId, formData);
-  //     onConfirm();
-  //   } else {
-  //     addRecord(formData);
-  //     onConfirm();
-  //   }
-  //   resetForm();
-  //   clearEditingMode();
-  // };
 
   const [open, setOpen] = useState(false);
 

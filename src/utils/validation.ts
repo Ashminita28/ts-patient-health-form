@@ -62,6 +62,7 @@ export const patientSchema = z.object({
   chronicDiseases: z.array(z.string()),
 
   exerciseFrequency: z.string().min(1, 'Exercise frequency is required'),
+
   allergies: z.string(),
   medication: z.string(),
   sleepHours: z.string(),

@@ -7,18 +7,45 @@ import PersonalInfoSection from './FormSections/PersonalInfoSection';
 import HealthInfoSection from './FormSections/HealthInfoSection';
 import PrivacyConsentSection from './FormSections/PrivacyConsentSection';
 import type { FormValues } from '@/utils/validation';
+import { DataManagement } from '@/hooks/DataManagement';
+import { FormManagement } from '@/hooks/FormManagement';
 
 const HealthForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(patientSchema),
     defaultValues: {
+      id: '',
+      name: '',
+      email: '',
+      phone: '',
+      dob: '',
+      address: '',
+      height: '',
+      weight: '',
+      bloodPressure: '',
+      bloodTempreture: '',
+      bloodType: '',
+      dietType: '',
+      allergies: '',
+      sleepHours: '',
       chronicDiseases: [],
+      exerciseFrequency: '',
+      medication: '',
       privacyConsent: false,
     },
   });
+  const { editingId, resetForm, clearEditingMode } = FormManagement();
+  const { addRecord, updateRecord } = DataManagement();
 
   const onSubmit = (data: FormValues) => {
     console.log('Final Form Data:', data);
+    if (editingId) {
+      updateRecord(editingId, data);
+    } else {
+      addRecord(data);
+    }
+    resetForm();
+    clearEditingMode();
   };
 
   return (

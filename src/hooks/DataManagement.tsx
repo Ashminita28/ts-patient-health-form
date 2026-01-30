@@ -1,5 +1,5 @@
 import type { FormValues } from '@/utils/validation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface TableState {
   submitedData: FormValues[];
@@ -11,10 +11,14 @@ interface TableState {
 
 export const DataManagement = (): TableState => {
   const [submitedData, setSubmitedData] = useState<FormValues[]>([]);
+  useEffect(() => {
+    console.log('TABLE ROWS:-', submitedData);
+  }, [submitedData]);
 
   // ADD RECORD
   const addRecord = (record: FormValues) => {
     console.log('ADD RECORD CALLED', record);
+    console.log('SubmiitedData:-', submitedData);
 
     const newRecord = { ...record, id: Date.now().toString() };
     setSubmitedData((prevData) => [...prevData, newRecord]);

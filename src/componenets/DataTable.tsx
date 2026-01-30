@@ -2,6 +2,7 @@ import type { FormValues } from '@/utils/validation';
 import TableHeading from './Table/TableHeading';
 import TableRows from './Table/TableRows';
 import { Table, TableBody } from '@/components/ui/table';
+// import { DataManagement } from '@/hooks/DataManagement';
 
 interface DataTableProps {
   data: FormValues[];
@@ -20,6 +21,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, onEdit, onDelete }) => {
       </div>
     );
   }
+  console.log('Table data:-', data);
   return (
     <>
       <div className="space-y-6">
@@ -30,14 +32,16 @@ const DataTable: React.FC<DataTableProps> = ({ data, onEdit, onDelete }) => {
           <Table>
             <TableHeading />
             <TableBody>
-              {data.map((record) => (
-                <TableRows
-                  // key={record.id}
-                  record={record}
-                  onEdit={onEdit}
-                  onDelete={onDelete}
-                />
-              ))}
+              {data.map((record) => {
+                return (
+                  <TableRows
+                    key={record.id}
+                    record={record}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                  />
+                );
+              })}
               ;
             </TableBody>
           </Table>
