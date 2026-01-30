@@ -1,194 +1,74 @@
-import type { FormValues, FormErrors } from "../types/formTypes";
+import { z } from 'zod';
 
-export const validateField = (
-  name: string,
-  value: string | boolean,
-): string => {
-  switch (name) {
-    case "name":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "Name is required";
-        }
-        if (/[^A-Za-z]+$/.test(value)) {
-          return "*Letters only";
-        }
-      }
-      return "";
+export const patientSchema = z.object({
+  id: z.string(),
 
-    case "email":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "*Email required";
-        }
-        const ePattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!ePattern.test(value)) {
-          return "*Invalid email format";
-        }
-      }
-      return "";
+  name: z
+    .string()
+    .min(1, 'Name is required')
+    .min(2, 'Name must be at least 2 characters')
+    .regex(/^[A-Za-z\s]+$/, 'Name should contain only letters'),
 
-    case "dob":
-      if (typeof value === "string") {
-        const currentDate = new Date();
-        const dobDate = new Date(value);
-        if (!value || value.trim() === "") {
-          return "*Date of Birth required";
-        }
-        if (dobDate > currentDate) {
-          return "*Date of Birth cannot be in future";
-        }
-        let age = currentDate.getFullYear() - dobDate.getFullYear();
-        const month = currentDate.getMonth() - dobDate.getMonth();
+  email: z.email(),
+  phone: z
+    .string()
+    .min(1, 'Phone number is required')
+    .refine(
+      (val) => /^\d{10}$/.test(val.replace(/[-\s]/g, '')),
+      'Please enter a valid 10-digit phone number',
+    ),
 
-        if (
-          month < 0 ||
-          (month === 0 && currentDate.getDate() < dobDate.getDate())
-        ) {
-          age--;
-        }
-        if (age < 18) {
-          return "*Age should be above 18";
-        }
-      }
-      return "";
+  dob: z.string().min(1, 'Date of birth is required'),
 
-    case "phone":
-      if (typeof value === "string") {
-        if (value.length > 10) {
-          value = value.slice(0, 10);
-        }
-        if (value === "") {
-          return "*Phone number required";
-        }
-      }
+  address: z.string().min(1, 'Address is required'),
 
-      return "";
+  bloodTempreture: z
+    .string()
+    .min(1, 'Blood temperature is required')
+    .refine((val) => {
+      const temp = parseFloat(val);
+      return !isNaN(temp) && temp >= 95 && temp <= 105;
+    }, 'Temperature should be between 95°F and 105°F'),
 
-    case "address":
-      if (typeof value === "string") {
-        if (!value) {
-          return "*Address required";
-        }
-      }
+  bloodPressure: z
+    .string()
+    .min(1, 'Blood pressure is required')
+    .regex(/^\d{2,3}\/\d{2,3}$/, 'Format should be like 120/80'),
 
-      return "";
+  height: z
+    .string()
+    .min(1, 'Height is required')
+    .refine((val) => {
+      const height = parseFloat(val);
+      return !isNaN(height) && height > 0;
+    }, 'Please enter a valid height'),
 
-    case "height":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "*Height required";
-        }
-        if (Number(value) < 30 || Number(value) > 250) {
-          return "*Height must be between (30 to 250)cm";
-        }
-      }
+  weight: z
+    .string()
+    .min(1, 'Weight is required')
+    .refine((val) => {
+      const weight = parseFloat(val);
+      return !isNaN(weight) && weight > 0;
+    }, 'Please enter a valid weight'),
 
-      return "";
-    case "weight":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "*Weight required";
-        }
-        if (Number(value) < 30 || Number(value) > 200) {
-          return "*Weight must be between (30 to 200)kg";
-        }
-      }
+  bloodType: z
+    .string()
+    .min(1, 'Blood type is required')
+    .refine(
+      (val) => ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].includes(val),
+      'Invalid blood type',
+    ),
+  dietType: z.string(),
+  chronicDiseases: z.array(z.string()),
 
-      return "";
+  exerciseFrequency: z.string().min(1, 'Exercise frequency is required'),
+  allergies: z.string(),
+  medication: z.string(),
+  sleepHours: z.string(),
 
-    case "bloodPressure":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "";
-        }
-        if (Number(value) < 70 || Number(value) > 250) {
-          return "*Blood Pressure must be between (70-250 mmHg)";
-        }
-      }
+  privacyConsent: z
+    .boolean()
+    .refine((val) => val === true, 'You must accept the privacy policy'),
+});
 
-      return "";
-
-    case "bloodTempreture":
-      if (typeof value === "string") {
-        if (!value || value.trim() === "") {
-          return "";
-        }
-        if (Number(value) < 30 || Number(value) > 45) {
-          return "*Blood temprature must be between (30 - 45 degree celcius)";
-        }
-      }
-
-      return " ";
-
-    case "bloodType":
-      if (typeof value === "string") {
-        if (!value || value === "") {
-          return "*Select blood group";
-        }
-      }
-
-      return "";
-
-    case "exerciseFrequency":
-      if (typeof value === "string") {
-        if (!value || value === "") {
-          return "Select exercise frequency";
-        }
-      }
-      return "";
-
-    case "sleepHours":
-      if (typeof value === "string") {
-        if (Number(value) < 0 || Number(value) > 24)
-          return "*Sleep hour must be betwwen 0 to 24 hours";
-      }
-
-      return "";
-
-    case "privacyConsent":
-      if (typeof value === "string") {
-        if (!value) {
-          return "*Please agree to the privacy policy";
-        }
-      }
-      return "";
-
-    default:
-      return "";
-  }
-};
-
-export const validateForm = (formData: FormValues): FormErrors => {
-  const errors: FormErrors = {};
-  const nameError = validateField("name", formData.name);
-  if (nameError) errors.name = nameError;
-  const phoneError = validateField("phone", formData.phone);
-  if (phoneError) errors.phone = phoneError;
-  const dobError = validateField("dob", formData.dob);
-  if (dobError) errors.dob = dobError;
-  const emailError = validateField("email", formData.email);
-  if (emailError) errors.email = emailError;
-  const addressError = validateField("address", formData.address);
-  if (addressError) errors.address = addressError;
-  const tempError = validateField("bloodTempreture", formData.bloodTempreture);
-  if (tempError) errors.bloodTempreture = tempError;
-  const pressureError = validateField("bloodPressure", formData.bloodPressure);
-  if (pressureError) errors.bloodPressure = pressureError;
-  const bloodTypeError = validateField("bloodType", formData.bloodType);
-  if (bloodTypeError) errors.bloodType = bloodTypeError;
-  const heightError = validateField("height", formData.height);
-  const exerciseFrequencyError = validateField(
-    "exerciseFrequency",
-    formData.exerciseFrequency,
-  );
-  if (exerciseFrequencyError) errors.exerciseFrequency = exerciseFrequencyError;
-  if (heightError) errors.height = heightError;
-  const weightError = validateField("weight", formData.weight);
-  if (weightError) errors.weight = weightError;
-  const sleepHoursError = validateField("sleepHours", formData.sleepHours);
-  if (sleepHoursError) errors.sleepHours = sleepHoursError;
-  const privacyError = validateField("privacyConsent", formData.privacyConsent);
-  if (privacyError) errors.privacyConsent = false;
-  return errors;
-};
+export type FormValues = z.infer<typeof patientSchema>;

@@ -1,68 +1,60 @@
-import React from "react";
-import { FormManagement } from "./hooks/FormManagement";
-import { formSubmission } from "./services/submissionServices";
-import HealthForm from "./componenets/HealthForm";
-import { DataManagement } from "./hooks/DataManagement";
-import DataTable from "./componenets/DataTable";
-import { useTheme } from "./contexts/ThemeContext";
-import { useState } from "react";
-import Button from "./componenets/Common/Button";
-import "./App.css";
-import "./styles/table.css";
-import "./styles/style.css";
-import "./styles/submitConfirmation.css";
-import Modal from "./componenets/Common/Modal";
+import React from 'react';
+import { FormManagement } from './hooks/FormManagement';
+// import { formSubmission } from "./services/submissionServices";
+import HealthForm from './componenets/HealthForm';
+import { DataManagement } from './hooks/DataManagement';
+import DataTable from './componenets/DataTable';
+import { useTheme } from './contexts/ThemeContext';
+import { useState } from 'react';
+// import Button from "./componenets/Common/ButtonComponent";
+import { Button } from './components/ui/button';
+import Modal from './componenets/Common/ModalComponent';
 
 const App: React.FC = () => {
   const { isDarkTheme, toggleTheme } = useTheme();
   const {
-    formData,
-    errors,
+    // formData,
+    // errors,
     editingId,
-    formRef,
-    handleInputChange,
-    handleCheckboxChange,
+    // formRef,
+    // handleInputChange,
+    // handleCheckboxChange,
     resetForm,
-    validateAllFields,
+    // validateAllFields,
     setFormDataForEdit,
     clearEditingMode,
   } = FormManagement();
 
-  const { submitedData, addRecord, updateRecord, deleteRecord, getRecordById } =
-    DataManagement();
+  const { submitedData, deleteRecord, getRecordById } = DataManagement();
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleFormSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
 
-    const validationErrors = validateAllFields();
+  //   // const validationErrors = validateAllFields();
 
-    const result = formSubmission(formData, validationErrors);
-    console.log("FORM DATA", formData);
+  //   // const result = formSubmission(formData, validationErrors);
+  //   console.log("FORM DATA", formData);
 
-    if (!result.success) {
-      alert("Fix validations");
-      return;
-    }
-    if (editingId) {
-      updateRecord(editingId, formData);
-      onConfirm();
-    } else {
-      addRecord(formData);
-      onConfirm();
-    }
-    resetForm();
-    clearEditingMode();
-  };
+  //   // if (!result.success) {
+  //   //   alert("Fix validations");
+  //   //   return;
+  //   // }
+
+  //   if (editingId) {
+  //     updateRecord(editingId, formData);
+  //     onConfirm();
+  //   } else {
+  //     addRecord(formData);
+  //     onConfirm();
+  //   }
+  //   resetForm();
+  //   clearEditingMode();
+  // };
 
   const [open, setOpen] = useState(false);
 
-  const onConfirm = () => {
-    console.log("Accepted Data:");
-    setOpen(true);
-  };
-
   const onCancel = () => {
-    console.log("rejected Data:");
+    console.log('rejected Data:');
     setOpen(false);
   };
 
@@ -70,7 +62,7 @@ const App: React.FC = () => {
     const record = getRecordById(id);
     if (record) {
       setFormDataForEdit(record, id);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -86,22 +78,15 @@ const App: React.FC = () => {
 
   return (
     <>
-      <div className={`App ${isDarkTheme ? "dark-theme" : "light-theme"}`}>
+      <div className={`App ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>
         <div className="container">
           <div className="theme-container">
             <Button onClick={toggleTheme} className="theme-button">
-              {isDarkTheme ? "light mode" : "dark mode"}
+              {isDarkTheme ? 'light mode' : 'dark mode'}
             </Button>
           </div>
           <div className="full-content">
-            <HealthForm
-              formData={formData}
-              errors={errors}
-              onInputChange={handleInputChange}
-              onCheckboxChange={handleCheckboxChange}
-              onSubmit={handleFormSubmit}
-              formRef={formRef}
-            />
+            <HealthForm />
             <DataTable
               data={submitedData}
               onEdit={handleEdit}

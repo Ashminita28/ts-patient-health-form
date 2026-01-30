@@ -1,64 +1,41 @@
-import Button from "./Common/Button";
-import React from "react";
-import type { FormValues, FormErrors } from "../types/formTypes";
-import PersonalInfoSection from "./FormSections/PersonalInfoSection";
-import HealthInfoSection from "./FormSections/HealthInfoSection";
-import PrivacyConsentSection from "./FormSections/PrivacyConsentSection";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form } from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { patientSchema } from '@/utils/validation';
+import PersonalInfoSection from './FormSections/PersonalInfoSection';
+import HealthInfoSection from './FormSections/HealthInfoSection';
+import PrivacyConsentSection from './FormSections/PrivacyConsentSection';
+import type { FormValues } from '@/utils/validation';
 
-interface HealthFormProps {
-  formData: FormValues;
-  errors: FormErrors;
-  onInputChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => void;
-  onCheckboxChange: (disease: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  formRef: React.RefObject<HTMLFormElement | null>;
-  isEditing?: boolean;
-}
+const HealthForm = () => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(patientSchema),
+    defaultValues: {
+      chronicDiseases: [],
+      privacyConsent: false,
+    },
+  });
 
-const HealthForm: React.FC<HealthFormProps> = ({
-  formData,
-  errors,
-  onInputChange,
-  onCheckboxChange,
-  onSubmit,
-  formRef,
-  isEditing = false,
-}) => {
-  console.log("RENDER");
+  const onSubmit = (data: FormValues) => {
+    console.log('Final Form Data:', data);
+  };
 
   return (
-    <>
-      <div className="main">
-        <div className="logo-box">
-          <h1>Patient Health Form</h1>
-        </div>
-        <form ref={formRef} onSubmit={onSubmit} className="form-content">
-          <PersonalInfoSection
-            formData={formData}
-            errors={errors}
-            onChange={onInputChange}
-          />
-          <HealthInfoSection
-            formData={formData}
-            errors={errors}
-            onChange={onInputChange}
-            onCheckboxChange={onCheckboxChange}
-          />
-          <PrivacyConsentSection
-            formData={formData}
-            errors={errors}
-            onChange={onInputChange}
-          />
-          <Button type="submit" className="btn">
-            {isEditing ? "Update" : "Submit"}
-          </Button>
-        </form>
-      </div>
-    </>
+    <Form {...form}>
+      <form
+        id="form-rhf-complex"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-3xl mx-auto space-y-8"
+      >
+        <PersonalInfoSection form={form} />
+        <HealthInfoSection form={form} />
+        <PrivacyConsentSection form={form} />
+        <Button form="form-rhf-complex" type="submit">
+          "Submit Form"
+        </Button>
+      </form>
+    </Form>
   );
 };
 

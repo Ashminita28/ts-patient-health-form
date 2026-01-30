@@ -1,91 +1,93 @@
-import React from "react";
-
-import type { FormErrors, FormValues } from "../../types/formTypes";
-import TextArea from "../FormFields/TextArea";
-import TextInput from "../FormFields/TextInput";
+import type { FormValues } from '@/utils/validation';
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import type { UseFormReturn } from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
 
 interface PersonalInfoSectionProps {
-  formData: FormValues;
-  errors: FormErrors;
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => void;
+  form: UseFormReturn<FormValues>;
 }
 
-const PersonalInfoSection: React.FC<PersonalInfoSectionProps> = ({
-  formData,
-  errors,
-  onChange,
-}) => {
+const PersonalInfoSection = ({ form }: PersonalInfoSectionProps) => {
   return (
     <>
-      <div className="form">
-        <h2 className="section-title">Personal Information</h2>
+      <div className="space-y-6">
+        <h2 className="text-xl">Personal Information</h2>
         <div className="info-card">
           <strong>Important:</strong>All fields marked with an asterik (*) are
           required.
         </div>
-        <div className="fields">
-          <TextInput
-            id="name"
-            name="name"
-            label="Full Name"
-            type="text"
-            value={formData.name}
-            onChange={onChange}
-            placeholder="Enter your name"
-            error={errors.name}
-            required
-          />
-          <TextInput
-            id="dob"
-            name="dob"
-            label="Date of Birth"
-            type="date"
-            value={formData.dob}
-            onChange={onChange}
-            placeholder="Enter your date of birth"
-            error={errors.dob}
-            required
-          />
-        </div>
-        <div className="fields">
-          <TextInput
-            id="email"
-            name="email"
-            label="Email"
-            type="email"
-            value={formData.email}
-            onChange={onChange}
-            placeholder="Enter you email id"
-            error={errors.email}
-            required
-          />
-          <TextInput
-            id="phone"
-            name="phone"
-            label="Phone Number"
-            type="number"
-            value={formData.phone}
-            onChange={onChange}
-            placeholder="Enter you phone number"
-            error={errors.phone}
-            required
-          />
-        </div>
-        <div className="fields full">
-          <TextArea
-            id="address"
-            name="address"
-            label="Address"
-            value={formData.address}
-            onChange={onChange}
-            error={errors.address}
-            placeholder="Enter your address"
-            rows={3}
-            required
-          />
-        </div>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dob"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Date of Birth*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Address*</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </>
   );

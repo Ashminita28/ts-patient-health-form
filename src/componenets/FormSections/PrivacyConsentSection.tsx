@@ -1,31 +1,38 @@
-import React from "react";
-
-import type { FormErrors, FormValues } from "../../types/formTypes";
-import Checkbox from "../FormFields/Checkbox";
+import type { FormValues } from '@/utils/validation';
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
+import { Checkbox } from '@/components/ui/checkbox';
+import type { UseFormReturn } from 'react-hook-form';
 
 interface PrivacyConsentSectionProps {
-  formData: FormValues;
-  errors: FormErrors;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  form: UseFormReturn<FormValues>;
 }
 
-const PrivacyConsentSection: React.FC<PrivacyConsentSectionProps> = ({
-  formData,
-  errors,
-  onChange,
-}) => {
+const PrivacyConsentSection = ({ form }: PrivacyConsentSectionProps) => {
   return (
     <>
-      <div className="form submit-section">
-        <h2 className="section-title">Privacy Agreement</h2>
-        <Checkbox
-          id="privacyConsent"
+      <div className="space-y-6">
+        <h2 className="text-xl">Privacy Agreement</h2>
+        <FormField
+          control={form.control}
           name="privacyConsent"
-          label="Privacy Consent"
-          checked={formData.privacyConsent}
-          onChange={onChange}
-          error={errors.privacyConsent}
-          required
+          render={({ field }) => (
+            <FormItem className="flex items-center gap-3">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>I agree to the privacy policay*</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
         />
       </div>
     </>

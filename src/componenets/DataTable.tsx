@@ -1,6 +1,7 @@
-import type { FormValues } from "../types/formTypes";
-import TableHeader from "./Table/TableHeader";
-import TableRow from "./Table/TableRow";
+import type { FormValues } from '@/utils/validation';
+import TableHeading from './Table/TableHeading';
+import TableRows from './Table/TableRows';
+import { Table, TableBody } from '@/components/ui/table';
 
 interface DataTableProps {
   data: FormValues[];
@@ -15,31 +16,31 @@ const DataTable: React.FC<DataTableProps> = ({ data, onEdit, onDelete }) => {
         <div className="record-box">
           <h1>Patient Health Records</h1>
         </div>
-        <p>Record not submited</p>
+        <p>No Records</p>
       </div>
     );
   }
   return (
     <>
-      <div className="tableData">
+      <div className="space-y-6">
         <div className="record-box">
           <h1>Patient Health Records</h1>
         </div>
-        <div className="listing">
-          <table>
-            <TableHeader />
-            <tbody>
+        <div className="table-auto">
+          <Table>
+            <TableHeading />
+            <TableBody>
               {data.map((record) => (
-                <TableRow
-                  key={record.id}
+                <TableRows
+                  // key={record.id}
                   record={record}
                   onEdit={onEdit}
                   onDelete={onDelete}
                 />
               ))}
               ;
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </>

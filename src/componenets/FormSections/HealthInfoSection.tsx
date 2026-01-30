@@ -1,161 +1,246 @@
-import React from "react";
-
-import type { FormErrors, FormValues } from "../../types/formTypes";
-import TextArea from "../FormFields/TextArea";
-import TextInput from "../FormFields/TextInput";
+import type { FormValues } from '@/utils/validation';
 import {
-  bloodTypeOptions,
-  chronicDiseasesOptions,
-  dietTypeOptions,
-  exerciseFrequencyOptions,
-} from "../../constants/FormOptions";
-import Dropdown from "../FormFields/Dropdown";
-import CheckboxGroup from "../FormFields/CheckboxGroup";
-import RadioGroup from "../FormFields/RadioGroup";
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import type { UseFormReturn } from 'react-hook-form';
+import { Checkbox } from '@/components/ui/checkbox';
+import { chronicDiseasesOptions } from '@/constants/FormOptions';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Textarea } from '@/components/ui/textarea';
 
 interface HealthInfoSectionProps {
-  formData: FormValues;
-  errors: FormErrors;
-  onChange: (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-  ) => void;
-  onCheckboxChange: (disease: string) => void;
+  form: UseFormReturn<FormValues>;
 }
 
-const HealthInfoSection: React.FC<HealthInfoSectionProps> = ({
-  formData,
-  errors,
-  onChange,
-  onCheckboxChange,
-}) => {
+const HealthInfoSection = ({ form }: HealthInfoSectionProps) => {
   return (
     <>
-      <div className="form">
-        <h2 className="section-title">Health Information</h2>
-        <div className="fields">
-          <TextInput
-            id="height"
-            name="height"
-            label="Height"
-            type="number"
-            value={formData.height}
-            onChange={onChange}
-            placeholder="Enter your height in CM"
-            error={errors.height}
-            required
-          />
-          <TextInput
-            id="weight"
-            name="weight"
-            label="Weight"
-            type="number"
-            value={formData.weight}
-            onChange={onChange}
-            placeholder="Enter your weight in KG"
-            error={errors.weight}
-            required
-          />
-        </div>
-        <div className="fields">
-          <TextInput
-            id="bloodPressure"
-            name="bloodPressure"
-            label="Blood Pressure(Optional)"
-            type="number"
-            value={formData.bloodPressure}
-            onChange={onChange}
-            placeholder="Enter your blood pressure in mmhg"
-            error={errors.bloodPressure}
-          />
-          <TextInput
-            id="bloodTempreture"
-            name="bloodTempreture"
-            label="Blood Tempreture(Optional)"
-            type="number"
-            value={formData.bloodTempreture}
-            onChange={onChange}
-            placeholder="Enter your blood tempreture in degree celsius"
-            error={errors.bloodTempreture}
-          />
-        </div>
-        <div className="fields">
-          <Dropdown
-            id="bloodType"
-            name="bloodType"
-            label="Blood Type"
-            value={formData.bloodType}
-            onChange={onChange}
-            options={bloodTypeOptions}
-            error={errors.bloodType}
-            placeholder="Select Blood Type"
-            required
-          />
-          <Dropdown
-            id="dietType"
-            name="dietType"
-            label="Diet Type(Optional)"
-            value={formData.dietType}
-            onChange={onChange}
-            options={dietTypeOptions}
-            error={errors.dietType}
-            placeholder="Select Diet Type"
-          />
-        </div>
-        <div className="fields">
-          <CheckboxGroup
-            id="chronicDiseases"
-            name="chronicDiseases"
-            label="Chronic diseases(Optional)"
-            options={chronicDiseasesOptions}
-            selectedValues={formData.chronicDiseases}
-            onChange={onCheckboxChange}
-          />
-          <RadioGroup
-            id="exerciseFrequency"
-            name="exerciseFrequency"
-            label="Exercise Frequency"
-            options={exerciseFrequencyOptions}
-            selectedValue={formData.exerciseFrequency}
-            onChange={onChange}
-            error={errors.exerciseFrequency}
-            required
-          />
-        </div>
-        <div className="fields">
-          <TextInput
-            id="allergies"
-            name="allergies"
-            label="Allergies(Optional)"
-            value={formData.allergies}
-            onChange={onChange}
-            placeholder="Mention your allergies"
-            error={errors.allergies}
-          />
-          <TextInput
-            id="sleepHours"
-            name="sleepHours"
-            label="Sleep Hours(Optional)"
-            type="number"
-            value={formData.sleepHours}
-            onChange={onChange}
-            placeholder="Enter your sleep hours"
-            error={errors.sleepHours}
-          />
-        </div>
-        <div className="fields full">
-          <TextArea
-            id="medication"
-            name="medication"
-            label="Current Medication(Optional)"
-            value={formData.medication}
-            onChange={onChange}
-            placeholder="Mention your current medications(if any)"
-            error={errors.medication}
-            rows={3}
-          />
-        </div>
+      <div className="space-y-6">
+        <h2 className="text-xl">Health Information</h2>
+
+        <FormField
+          control={form.control}
+          name="height"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Height*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="weight"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Weight*</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bloodPressure"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Blood Pressure(Optional)</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bloodTempreture"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Blood Tempreture(Optional)</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bloodType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Blood Type*</FormLabel>
+              <Select onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select blood type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="A+">A+</SelectItem>
+                  <SelectItem value="A-">A-</SelectItem>
+                  <SelectItem value="B+">B+</SelectItem>
+                  <SelectItem value="B-">B-</SelectItem>
+                  <SelectItem value="AB+">AB+</SelectItem>
+                  <SelectItem value="AB-">AB-</SelectItem>
+                  <SelectItem value="O+">O+</SelectItem>
+                  <SelectItem value="O-">O-</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="dietType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Diet Type(Optional)</FormLabel>
+              <Select onValueChange={field.onChange}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select diet type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="medditerran">medditerran</SelectItem>
+                  <SelectItem value="DASH">DASH</SelectItem>
+                  <SelectItem value="Plant Based">Plant Based</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="chronicDiseases"
+          render={({ field }) => (
+            <div className="space-y-2">
+              <FormLabel>Chronic Diseases(Optional)</FormLabel>
+              {chronicDiseasesOptions.map((service) => {
+                const isChecked = field.value?.includes(service.id);
+                return (
+                  <div key={service.id} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={service.id}
+                      checked={isChecked}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          field.onChange([...field.value, service.id]);
+                        } else {
+                          field.onChange(
+                            field.value.filter((v) => v !== service.id),
+                          );
+                        }
+                      }}
+                    />
+                    <Label htmlFor={service.id}>{service.label}</Label>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="exerciseFrequency"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Exercise Frequency*</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  className="flex flex-col space-y-2"
+                >
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <RadioGroupItem
+                        value="Mediterranean"
+                        id="Mediterranean"
+                      />
+                    </FormControl>
+                    <FormLabel htmlFor="Mediterranean">Mediterranean</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <RadioGroupItem value="DASH" id="DASH" />
+                    </FormControl>
+                    <FormLabel htmlFor="DASH">DASH</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <RadioGroupItem value="Plant based" id="Plant based" />
+                    </FormControl>
+                    <FormLabel htmlFor="Plant based">Plant</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="allergies"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Allergies(Optional)</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="sleepHours"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Sleep Hours(Optional)</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="medication"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Current Medication(Optional)</FormLabel>
+              <FormControl>
+                <Textarea {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
     </>
   );
