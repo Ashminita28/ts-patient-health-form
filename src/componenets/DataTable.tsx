@@ -2,6 +2,7 @@ import type { FormValues } from '@/utils/validation';
 import TableHeading from './Table/TableHeading';
 import TableRows from './Table/TableRows';
 import { Table, TableBody } from '@/components/ui/table';
+// import { record } from 'zod';
 // import { DataManagement } from '@/hooks/DataManagement';
 
 interface DataTableProps {
@@ -22,6 +23,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, onEdit, onDelete }) => {
     );
   }
   console.log('Table data:-', data);
+  // console.log("RECORDS:-",record);
   return (
     <>
       <div className="space-y-6">

@@ -15,6 +15,7 @@ const App: React.FC = () => {
     FormManagement();
 
   const { submitedData, deleteRecord, getRecordById } = DataManagement();
+  console.log('yuyuyu', submitedData);
 
   const [open, setOpen] = useState(false);
 

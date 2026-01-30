@@ -18,7 +18,7 @@ export const DataManagement = (): TableState => {
   // ADD RECORD
   const addRecord = (record: FormValues) => {
     console.log('ADD RECORD CALLED', record);
-    console.log('SubmiitedData:-', submitedData);
+    console.log('teee:-', submitedData);
 
     const newRecord = { ...record, id: Date.now().toString() };
     setSubmitedData((prevData) => [...prevData, newRecord]);
@@ -47,5 +47,8 @@ export const DataManagement = (): TableState => {
   const getRecordById = (id: string): FormValues | undefined => {
     return submitedData.find((record) => record.id === id);
   };
+  console.log('ABD:', submitedData);
+  console.log('RECORD');
+
   return { submitedData, addRecord, updateRecord, deleteRecord, getRecordById };
 };
