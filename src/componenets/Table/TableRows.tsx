@@ -1,4 +1,4 @@
-import type { FormValues } from '../../types/formTypes';
+import type { FormValues } from '@/utils/validation';
 import { Button } from '@/components/ui/button';
 import React from 'react';
 import { TableRow, TableCell } from '@/components/ui/table';
@@ -10,6 +10,7 @@ interface TableRowProps {
 }
 
 const TableRows: React.FC<TableRowProps> = ({ record, onEdit, onDelete }) => {
+  console.log('FFDFDDPOKKINIUNHUBUB', record);
   return (
     <TableRow>
       <TableCell>{record.name}</TableCell>
