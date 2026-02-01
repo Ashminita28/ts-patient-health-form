@@ -16,24 +16,26 @@ interface PrivacyConsentSectionProps {
 const PrivacyConsentSection = ({ form }: PrivacyConsentSectionProps) => {
   return (
     <>
-      <div className="space-y-6">
-        <h2 className="text-xl">Privacy Agreement</h2>
-        <FormField
-          control={form.control}
-          name="privacyConsent"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-3">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel>I agree to the privacy policay*</FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className="rounded-xl border bg-card p-6 shadow-sm space-y-6">
+        <h2 className="text-lg font-semibold">Privacy Agreement</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <FormField
+            control={form.control}
+            name="privacyConsent"
+            render={({ field }) => (
+              <FormItem className="flex items-center gap-3">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormLabel>I agree to the privacy policay*</FormLabel>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
       </div>
     </>
   );

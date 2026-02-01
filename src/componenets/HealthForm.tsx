@@ -7,10 +7,19 @@ import PersonalInfoSection from './FormSections/PersonalInfoSection';
 import HealthInfoSection from './FormSections/HealthInfoSection';
 import PrivacyConsentSection from './FormSections/PrivacyConsentSection';
 import type { FormValues } from '@/utils/validation';
-import { DataManagement } from '@/hooks/DataManagement';
 import { FormManagement } from '@/hooks/FormManagement';
 
-const HealthForm = () => {
+interface HealthFormProps {
+  addRecord: (data: FormValues) => void;
+  updateRecord: (id: string, data: FormValues) => void;
+  onClose: () => void;
+}
+
+const HealthForm: React.FC<HealthFormProps> = ({
+  addRecord,
+  updateRecord,
+  onClose,
+}) => {
   const form = useForm<FormValues>({
     resolver: zodResolver(patientSchema),
     defaultValues: {
@@ -35,7 +44,7 @@ const HealthForm = () => {
     },
   });
   const { editingId, resetForm, clearEditingMode } = FormManagement();
-  const { addRecord, updateRecord } = DataManagement();
+  // const { addRecord, updateRecord } = DataManagement();
 
   const onSubmit = (data: FormValues) => {
     console.log('Final Form Data:', data);
@@ -46,23 +55,29 @@ const HealthForm = () => {
     }
     resetForm();
     clearEditingMode();
+    onClose();
   };
 
   return (
-    <Form {...form}>
-      <form
-        id="form-rhf-complex"
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-3xl mx-auto space-y-8"
-      >
-        <PersonalInfoSection form={form} />
-        <HealthInfoSection form={form} />
-        <PrivacyConsentSection form={form} />
-        <Button form="form-rhf-complex" type="submit">
-          "Submit Form"
-        </Button>
-      </form>
-    </Form>
+    <div className="min-h-screen py-10 px-5 bg-[#fafbfc]">
+      <Button onClick={onClose}>Cancel</Button>
+      <Form {...form}>
+        <form
+          id="form-rhf-complex"
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-10"
+        >
+          <PersonalInfoSection form={form} />
+          <HealthInfoSection form={form} />
+          <PrivacyConsentSection form={form} />
+          <div className="flex justify-end gap-3 border-t pt-6">
+            <Button form="form-rhf-complex" type="submit">
+              "Submit Form"
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 };
 
