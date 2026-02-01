@@ -7,20 +7,29 @@ import PersonalInfoSection from './FormSections/PersonalInfoSection';
 import HealthInfoSection from './FormSections/HealthInfoSection';
 import PrivacyConsentSection from './FormSections/PrivacyConsentSection';
 import type { FormValues } from '@/utils/validation';
-// import { FormManagement } from '@/hooks/FormManagement';
 import { formStore } from '@/hooks/form-store';
 
 interface HealthFormProps {
   addRecord: (data: FormValues) => void;
   updateRecord: (id: string, data: FormValues) => void;
   onClose: () => void;
+  setConfirmation: React.Dispatch<
+    React.SetStateAction<{
+      open: boolean;
+      title: string;
+      message: string;
+    }>
+  >;
 }
 
 const HealthForm: React.FC<HealthFormProps> = ({
   addRecord,
   updateRecord,
   onClose,
+  setConfirmation,
 }) => {
+  console.log('render');
+
   const form = useForm<FormValues>({
     resolver: zodResolver(patientSchema),
     defaultValues: {
@@ -50,8 +59,18 @@ const HealthForm: React.FC<HealthFormProps> = ({
     console.log('Final Form Data:', data);
     if (editingId) {
       updateRecord(editingId, data);
+      setConfirmation({
+        open: true,
+        title: 'Success',
+        message: 'Form updated successfully!!',
+      });
     } else {
       addRecord(data);
+      setConfirmation({
+        open: true,
+        title: 'Success',
+        message: 'Form submitted successfully!!',
+      });
     }
     resetForm();
     clearEditingMode();
@@ -60,7 +79,6 @@ const HealthForm: React.FC<HealthFormProps> = ({
 
   return (
     <div className="min-h-screen py-10 px-5 bg-[#fafbfc]">
-      <Button onClick={onClose}>Cancel</Button>
       <Form {...form}>
         <form
           id="form-rhf-complex"

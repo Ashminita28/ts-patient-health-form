@@ -2,7 +2,7 @@ import { TableHeader, TableHead, TableRow } from '@/components/ui/table';
 
 const TableHeading: React.FC = () => {
   return (
-    <TableHeader className="bg-indigo-400">
+    <TableHeader className="bg-[#ff6b6b]">
       <TableRow>
         <TableHead className="px-4 py-3 text-left text-sm font-medium text-white">
           NAME

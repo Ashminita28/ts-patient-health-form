@@ -23,3 +23,23 @@ export const chronicDiseasesOptions = [
   { value: 'Asthma', id: 'Asthma', label: 'Asthma' },
   { value: 'Heart', id: 'Heart', label: 'Heart' },
 ];
+
+export const tableHeadings = [
+  'NAME',
+  'DOB',
+  'PHONE',
+  'EMAIL',
+  ' ADDRESS',
+  'HEIGHT',
+  'WEIGHT',
+  'BLOOD PRESSURE',
+  'BLOOD TEMPRETURE',
+  'BLOOD TYPE',
+  'DIET TYPE',
+  'ALLERIES',
+  'SLEEP HOURS',
+  'DISEASES',
+  'EXERCIDE FREQENCY',
+  'MEDICATION',
+  'ACTIONS',
+];
