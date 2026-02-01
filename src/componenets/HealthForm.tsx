@@ -7,7 +7,8 @@ import PersonalInfoSection from './FormSections/PersonalInfoSection';
 import HealthInfoSection from './FormSections/HealthInfoSection';
 import PrivacyConsentSection from './FormSections/PrivacyConsentSection';
 import type { FormValues } from '@/utils/validation';
-import { FormManagement } from '@/hooks/FormManagement';
+// import { FormManagement } from '@/hooks/FormManagement';
+import { formStore } from '@/hooks/form-store';
 
 interface HealthFormProps {
   addRecord: (data: FormValues) => void;
@@ -43,8 +44,7 @@ const HealthForm: React.FC<HealthFormProps> = ({
       privacyConsent: false,
     },
   });
-  const { editingId, resetForm, clearEditingMode } = FormManagement();
-  // const { addRecord, updateRecord } = DataManagement();
+  const { editingId, resetForm, clearEditingMode } = formStore();
 
   const onSubmit = (data: FormValues) => {
     console.log('Final Form Data:', data);

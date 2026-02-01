@@ -1,17 +1,28 @@
 import React from 'react';
-import { FormManagement } from './hooks/FormManagement';
-import { DataManagement } from './hooks/DataManagement';
+// import { FormManagement } from './hooks/FormManagement';
+// import { DataManagement } from './hooks/DataManagement';
 import DataTable from './componenets/DataTable';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ModeToggle } from './componenets/ModeToggle';
+import { formStore } from './hooks/form-store';
 
 const App: React.FC = () => {
-  const { editingId, resetForm, setFormDataForEdit, clearEditingMode } =
-    FormManagement();
+  // const { editingId, resetForm, setFormDataForEdit, clearEditingMode } =
+  //   FormManagement();
 
-  const { submitedData, addRecord, updateRecord, deleteRecord, getRecordById } =
-    DataManagement();
-  console.log('yuyuyu', submitedData);
+  const {
+    submittedData,
+    editingId,
+    resetForm,
+    setFormDataForEdit,
+    clearEditingMode,
+    addRecord,
+    updateRecord,
+    deleteRecord,
+    getRecordById,
+  } = formStore();
+
+  console.log('yuyuyu', submittedData);
 
   const handleEdit = (id: string) => {
     const record = getRecordById(id);
@@ -37,7 +48,7 @@ const App: React.FC = () => {
         <ModeToggle />
 
         <DataTable
-          data={submitedData}
+          data={submittedData}
           addRecord={addRecord}
           updateRecord={updateRecord}
           onEdit={handleEdit}
